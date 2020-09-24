@@ -7,14 +7,8 @@ jobs:
       - image: wmsolar/solardev:mongoexps
     steps:
       - checkout
-      - run:  
-          name: Start container and verify
-          command: |
-            set -x
-            docker image tag wmsolar/solardev:mongoexps mongo-express:latest
-            docker-compose up -d
-            docker container run -ti -v /sys/fs/cgroup:/sys/fs/cgroup:ro --name centos7 -d mongo-express:latest
-
+      - run:  echo "this is the test job"
+          
   
   # test:
   #   docker:
