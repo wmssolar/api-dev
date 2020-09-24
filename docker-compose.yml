@@ -1,0 +1,97 @@
+version: '3.8'
+services:
+  api:
+    image: wmsolar/solardev:mongoexps
+    build: .
+    networks:
+      - overlay
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/usr/src/app
+  web-cli:
+    image: mongo-express:latest
+    networks:
+      - overlay
+    command: sh
+    depends_on:
+      - mongodb
+    
+  mongodb:
+    image: wmsolar/solardev:database
+    container_name: mongodb
+    volumes: 
+      - type: volume
+        source: mongodbdata
+        target: /data/db
+        volume:
+          nocopy: true
+    ports: 
+      - "27017:27017"
+    networks:
+      - overlay
+
+
+volumes: 
+  mongodbdata:
+    external: true
+
+networks:
+   overlay:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# version: '3.8'
+# services:
+#   api:
+#     image: mongo-express
+#     build: .
+#     networks:
+#       - overlay
+#     ports:
+#       - "3000:3000"
+#     volumes:
+#       - ./:/usr/src/app
+#   web-cli:
+#     image: mongo-express
+#     networks:
+#       - overlay
+#     command: sh
+#     depends_on:
+#       - mongodb
+    
+#   mongodb:
+#     image: blancoh2/mongo:latest
+#     container_name: mongodb
+#     volumes: 
+#       - type: volume
+#         source: mongodbdata
+#         target: /data/db
+#         volume:
+#           nocopy: true
+#     ports: 
+#       - "27017:27017"
+#     networks:
+#       - overlay
+
+
+# volumes: 
+#   mongodbdata:
+
+# networks:
+#    overlay:
+

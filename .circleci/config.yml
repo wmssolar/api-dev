@@ -1,11 +1,16 @@
-version: 2
+version: 2.1
+
 jobs:
-  build:
-    working_directory: /app
-  steps:
-    - checkout
-    - setup_remote_docker
-    - run:
-        name: Run tests
-        command: |
-              docker-compose -f ./docker-compose.yml up
+  docker:
+    - image: wmsolar/solardev:mongoexps
+  run_tests:
+    steps:  
+      - run:
+          name: run images
+          command: |
+             docker-compose up    
+workflows:
+  version: 2
+  build_test:
+    jobs:
+      - run_tests
