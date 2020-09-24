@@ -1,16 +1,17 @@
 version: 2.1
 
 jobs:
-  docker:
-    - image: wmsolar/solardev:mongoexps
-  run_tests:
-    steps:  
-      - run:
-          name: run images
-          command: |
-             docker-compose up    
-workflows:
-  version: 2
-  build_test:
-    jobs:
-      - run_tests
+  build:
+    docker:
+      - image: wmsolar/solardev:mongoexps
+  # run_tests:
+  #   steps:  
+  #     - run:
+  #         name: run images
+  #         command: |
+  #            docker-compose up    
+# workflows:
+#   version: 2
+#   build_test:
+#     jobs:
+#       - run_tests
