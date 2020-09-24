@@ -4,6 +4,8 @@ jobs:
   build:
     docker:
       - image: wmsolar/solardev:mongoexps
+        environment:
+          ENV: CI
   # run_tests:
   #   steps:  
   #     - run:
