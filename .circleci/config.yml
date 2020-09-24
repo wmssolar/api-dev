@@ -7,14 +7,16 @@ jobs:
       - image: wmsolar/solardev:mongoexps
     steps:
       - checkout
-      - run: echo "this is the build job"
-  test:
-    docker:
-      - image: mongo-express:latest
-    steps:
-      - checkout
-      - run: echo "this is the test job
-  test_other:
+      - run:  
+          name: Start container and verify
+          command: |
+            set -x
+            docker image tag wmsolar/solardev:mongoexps mongo-express:latest
+            docker-compose up -d
+            docker container run -ti -v /sys/fs/cgroup:/sys/fs/cgroup:ro --name centos7 -d mongo-express:latest
+
+  
+      test:
         docker:
           - image: wmsolar/solardev:database
         steps:
@@ -27,7 +29,7 @@ workflows:
     jobs:
       - build
       - test
-      - test_other
+      
 
   # run_tests:
   #   steps:  
