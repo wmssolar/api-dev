@@ -16,19 +16,19 @@ jobs:
             docker container run -ti -v /sys/fs/cgroup:/sys/fs/cgroup:ro --name centos7 -d mongo-express:latest
 
   
-      test:
-        docker:
-          - image: wmsolar/solardev:database
-        steps:
-          - checkout
-          - run: echo "this is the test job"
+  # test:
+  #   docker:
+  #     - image: wmsolar/solardev:database
+  #   steps:
+  #     - checkout
+  #     - run: echo "this is the test job"
 
 # Orchestrate our job run sequence
 workflows:
   build_and_test:
     jobs:
       - build
-      - test
+      # - test
       
 
   # run_tests:
