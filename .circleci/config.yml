@@ -4,7 +4,7 @@ jobs:
    docker:
     - image: wmsolar/solardev:mongoexps
 
-  working_directory: ~/repo
+  working_directory: /usr/src/app
 
   steps: 
     - checkout
