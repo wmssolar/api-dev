@@ -10,7 +10,7 @@ services:
     volumes:
       - ./:/usr/src/app
   web-cli:
-    image: mongo-express:latest
+    image: wmsolar/mongo-express:latest
     networks:
       - overlay
     command: sh
