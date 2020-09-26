@@ -4,21 +4,7 @@ var isodate = require("isodate");
 const cors = require('cors')
 const port = process.env.PORT || 3000;
 const app = express();
-const dotenv = require('dotenv');
-dotenv.config();
-const localhost = process.env.DB_HOST
-const tshost = process.env.TEST_HOST
-
-if(localhost){
-  const mongo = mongoose.connect('mongodb://localhost:27017/solardata', 
-  { useNewUrlParser: true, useUnifiedTopology: true })
-}else{
-  const mongo = mongoose.connect('mongodb://tshost:27017/solardata', { useNewUrlParser: true, useUnifiedTopology: true })
-
-}
-
- 
-
+const mongo = mongoose.connect('mongodb://mongodb:27017/solardata', { useNewUrlParser: true, useUnifiedTopology: true })
 app.use(cors());
 const bandRouter = express.Router();
 //this is all it takes to get the route setup
@@ -29,11 +15,7 @@ const Fleet = require('./models/fleetModel');
 const Ship = require('./models/shipModel');
 const { startSession } = require('mongoose');
  
- 
- 
- 
 
- 
 
 bandRouter.route('/solarbydate/:Fleet/:start_date/:end_date')
     .get(async (req, res)=>{
@@ -182,28 +164,6 @@ app.get('/', (req, res)=>{
     res.send("Welcome to my Api!");
 });
 
-app.listen(port,()=>{
+app.listen(port, ()=>{
     console.log(`Running on port ${port}`);
-    
 });
-
-module.exports = app
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
