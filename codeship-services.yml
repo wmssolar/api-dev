@@ -10,7 +10,7 @@ demo:
 mongodb:
   image: wmsolar/solardev:database
 api:
-  image: wmsolar/solardev:latest
+  image: wmsolar/solardev:mongoexps
     
   
       
