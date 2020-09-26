@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   test_api:
-    image: wmsolar/cent-nod-mongodb:base
+    image: mongo-express:latest
     working_dir: /usr/src/app
     volumes:
       - .:/usr/scr/app
