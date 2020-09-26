@@ -1,12 +1,15 @@
 version: '3.8'
 services:
   test_api:
-    image: mongo-express:latest
+    image: wmsolar/solardev:mongoexps
+    build: .
+    command: npm test
+    networks:
+      - overlay
     working_dir: /usr/src/app
     volumes:
       - .:/usr/scr/app
-    command:
-      npm test
+   
   api:
     image: wmsolar/solardev:latest
     build: .

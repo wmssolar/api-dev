@@ -13,7 +13,7 @@ mongodb:
 api:
   image: wmsolar/solardev:mongoexps
 test_api:
-  image: wmsolar/cent-nod-mongodb:base
+  image: wmsolar/solardev:mongoexps
     
   
       

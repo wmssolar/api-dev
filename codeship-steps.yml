@@ -1,3 +1,7 @@
-- name: test
+- name: build_dock
   service: demo
   command: echo one
+
+- name: test
+  service: test_api
+  command: /bin/sh -c "npm install && npm test"
