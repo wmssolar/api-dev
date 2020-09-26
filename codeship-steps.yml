@@ -1,7 +1,7 @@
-- name: build_dock
-   type: serial
-   steps:
-    - service: demo
-        command: echo two
-    - service: test_api
-        command: npm test 
+- name: builddock
+  service: demo
+  command: echo one
+
+- name: test
+  service: testapi
+  command: /bin/sh -c "npm install && npm test"
