@@ -1,3 +1,3 @@
 - name: test
   service: demo
-  command: npm test
+  command: echo one

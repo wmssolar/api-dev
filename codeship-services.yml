@@ -3,6 +3,7 @@ demo:
     links:
       - mongodb 
       - api
+      - test_api
     environment:
       DATABASE_URL: "mongodb://mongodb:27017/solardata"
     cached: true
@@ -11,6 +12,8 @@ mongodb:
   image: wmsolar/solardev:database
 api:
   image: wmsolar/solardev:mongoexps
+test_api:
+  image: wmsolar/cent-nod-mongodb:base
     
   
       
