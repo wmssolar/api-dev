@@ -4,4 +4,4 @@
 
 - name: test
   service: testapi
-  command: /bin/sh -c "npm install && npm test"
+  command: npm test

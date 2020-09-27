@@ -1,27 +1,20 @@
 version: '3.8'
 services:
-  test_api:
-    image: wmsolar/solardev:mongoexps
-    build: .
-    command: npm test
-    networks:
-      - overlay
-    working_dir: /usr/src/app
-    volumes:
-      - .:/usr/scr/app
-   
   api:
-    image: wmsolar/solardev:latest
+    # image: wmsolar/solardev:latest
     build: .
+    image: myapp
     networks:
       - overlay
     ports:
       - "3000:3000"
+    working_dir: /usr/src/app
     volumes:
-      - ./:/usr/src/app
-      
+      - .:/usr/scr/app
+       
   web-cli:
-    image: mongo-express:latest
+    image: wmsolar/solardev:latest 
+    # mongo-express:latest
     networks:
       - overlay
     command: sh
@@ -41,7 +34,23 @@ services:
       - "27017:27017"
     networks:
       - overlay
-
+  
+  test_api:
+    image: myapp
+    container_name: test_mocha
+    command: dockerize
+        -wait http://localhost:3000 10s
+        bash -c "npm test"
+    networks:
+      - overlay
+    volumes:
+      - ./:/usr/src/app
+    # restart: on-failure
+    depends_on: 
+      - api
+      - mongodb
+    
+    
 
 volumes: 
   mongodbdata:

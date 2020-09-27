@@ -1,5 +1,5 @@
 # FROM mongoimg:latest
-FROM wmsolar/solardev:mongoexps
+FROM wmsolar/solardev:latest
 
 RUN mkdir -p /usr/src/app
 
@@ -12,7 +12,8 @@ RUN npm install
 EXPOSE 3000
 
 CMD ["npm", "start"]
- 
+
+
 
  
 

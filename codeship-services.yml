@@ -11,9 +11,9 @@ demo:
 mongodb:
   image: wmsolar/solardev:database
 api:
-  image: wmsolar/solardev:mongoexps
+  image: wmsolar/solardev:latest
 testapi:
-  image: wmsolar/solardev:mongoexps
+  image: wmsolar/solardev:latest
     
   
       
