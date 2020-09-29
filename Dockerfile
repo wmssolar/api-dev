@@ -1,8 +1,8 @@
 # FROM mongoimg:latest
 # FROM wmsolar/solardev:latest
-FROM wmsolar/centosapiv1:latest as builder
+FROM wmsolar/centosapiv1:latest  
 
-RUN /bin/bash -c "/usr/sbin/sshd"
+# RUN /bin/bash -c "/usr/sbin/sshd"
 
 RUN mkdir -p /usr/src/app
 
