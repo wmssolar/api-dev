@@ -5,8 +5,8 @@
     command: ls
   - service: 01demodockerfile
     command: npm run ci
-  # - service: 01demodockerfiledockercompose
-  #   command: echo one
+  - service: 01demodockerfiledockercompose
+    command: echo one
 
 # - name: builddock
 #   service: demo
