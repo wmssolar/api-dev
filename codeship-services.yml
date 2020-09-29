@@ -1,19 +1,43 @@
-demo:
-    build: .
+01demodockerfile:
+  build:
+    image: 01demodockerfile
+    dockerfile_path: Dockerfile
     depends_on:
       - mongodb 
-      - api
-      - testapi
+      - demohub
+    ports:
+      - "3000:3000"
     environment:
-      DATABASE_URL: "mongodb://mongodb:27017/solardata"
+       DATABASE_URL: "mongodb://mongodb:27017/solardata"
     cached: true
-    
+
 mongodb:
   image: wmsolar/solardev:database
-api:
-  image: wmsolar/solardev:latest
-testapi:
-  image: wmsolar/solardev:latest
+
+01demodockerfiledockercompose:
+  build: .
+  demohub:
+    image: wmsolar/centosapiv1:latest
+ 
+
+
+# demo:
+#     build: .
+#     depends_on:
+#       - mongodb 
+#       - api
+#       # - testapi
+#     environment:
+#       DATABASE_URL: "mongodb://mongodb:27017/solardata"
+#     cached: true
+    
+# mongodb:
+#   image: wmsolar/solardev:database
+# api:
+#   image: wmsolar/solardev:latest
+
+# testapi:
+#   image: wmsolar/solardev:latest
     
   
       

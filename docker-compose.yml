@@ -1,26 +1,5 @@
 version: '3.8'
 services:
-  api:
-    # image: wmsolar/solardev:latest
-    build: .
-    image: myapp
-    networks:
-      - overlay
-    ports:
-      - "3000:3000"
-    working_dir: /usr/src/app
-    volumes:
-      - .:/usr/scr/app
-       
-  web-cli:
-    image: wmsolar/solardev:latest 
-    # mongo-express:latest
-    networks:
-      - overlay
-    command: sh
-    depends_on:
-      - mongodb
-    
   mongodb:
     image: wmsolar/solardev:database
     container_name: mongodb
@@ -34,23 +13,41 @@ services:
       - "27017:27017"
     networks:
       - overlay
-  
-  test_api:
-    image: myapp
-    container_name: test_mocha
-    command: dockerize
-        -wait http://localhost:3000 10s
-        bash -c "npm test"
+
+  api:
+    build: .
+    image: wmsolar/centosapiv1:latest
+    container_name: apipoint
+    # command: dockerize
+    #     - wait /usr/sbin/sshd
     networks:
       - overlay
+    privileged: true
+    ports:
+      - "3000:3000"
+    working_dir: /usr/src/app
     volumes:
-      - ./:/usr/src/app
-    # restart: on-failure
-    depends_on: 
-      - api
+      - .:/usr/scr/app
+    depends_on:
       - mongodb
-    
-    
+       
+  # test_api:
+  #   image: wmsolar/centosapiv1:latest
+  #   container_name: test_mocha
+    # command: dockerize
+    #     - wait /usr/sbin/sshd
+    #     - wait ssh root@apipoint "cd /usr/src/app && npm test"
+    # networks:
+    #   - overlay
+   
+    # ports:
+    #   - "3000:3000"
+    # volumes:
+    #   - ./:/usr/src/app
+    # restart: on-failure
+    # depends_on: 
+    #   - api
+    #   - mongodb
 
 volumes: 
   mongodbdata:
@@ -58,60 +55,3 @@ volumes:
     
 networks:
    overlay:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# version: '3.8'
-# services:
-#   api:
-#     image: mongo-express
-#     build: .
-#     networks:
-#       - overlay
-#     ports:
-#       - "3000:3000"
-#     volumes:
-#       - ./:/usr/src/app
-#   web-cli:
-#     image: mongo-express
-#     networks:
-#       - overlay
-#     command: sh
-#     depends_on:
-#       - mongodb
-    
-#   mongodb:
-#     image: blancoh2/mongo:latest
-#     container_name: mongodb
-#     volumes: 
-#       - type: volume
-#         source: mongodbdata
-#         target: /data/db
-#         volume:
-#           nocopy: true
-#     ports: 
-#       - "27017:27017"
-#     networks:
-#       - overlay
-
-
-# volumes: 
-#   mongodbdata:
-
-# networks:
-#    overlay:
-

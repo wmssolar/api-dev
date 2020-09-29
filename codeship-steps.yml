@@ -1,7 +1,19 @@
-- name: builddock
-  service: demo
-  command: echo one
+- type: serial
+  name: 01
+  steps:
+  - service: mongodb
+    command: ls
+  - service: 01demodockerfile
+    command: npm run ci
+  # - service: 01demodockerfiledockercompose
+  #   command: echo one
 
-- name: test
-  service: testapi
-  command: npm test
+# - name: builddock
+#   service: demo
+#   command: echo one
+
+ 
+
+# - name: tests
+#   service: testapi
+#   command: /bin/sh -c "npm install && npm test"
