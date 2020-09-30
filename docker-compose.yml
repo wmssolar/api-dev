@@ -18,8 +18,6 @@ services:
     build: .
     image: wmsolar/centosapiv1:latest
     container_name: apipoint
-    # command: dockerize
-    #     - wait /usr/sbin/sshd
     networks:
       - overlay
     privileged: true
@@ -31,24 +29,6 @@ services:
     depends_on:
       - mongodb
        
-  # test_api:
-  #   image: wmsolar/centosapiv1:latest
-  #   container_name: test_mocha
-    # command: dockerize
-    #     - wait /usr/sbin/sshd
-    #     - wait ssh root@apipoint "cd /usr/src/app && npm test"
-    # networks:
-    #   - overlay
-   
-    # ports:
-    #   - "3000:3000"
-    # volumes:
-    #   - ./:/usr/src/app
-    # restart: on-failure
-    # depends_on: 
-    #   - api
-    #   - mongodb
-
 volumes: 
   mongodbdata:
     external: true

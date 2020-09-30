@@ -50,23 +50,4 @@ describe('Get /api/solar', () =>{
 });
 
 
-// describe('Get /api/solar/cel', () =>{
-
-//   it('success, finally',done =>{
-//   chai.request(SERVER_URL)
-//   .get('/api/solar/cel')
-//   .end(function(err, res){
-//     expect(err).to.be.null;
- 
-//     expect(res).to.have.status(200);
-//     const val = res.body.data.pop();
-//     expect(val.Fleet).to.equals('cel');
-//     // lsconsole.log(val.Fleet);
-//     done();
-//   });
-
-  
-//     });
-
-// });
 
