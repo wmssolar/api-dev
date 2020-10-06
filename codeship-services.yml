@@ -1,6 +1,6 @@
 demo:
     build: 
-      image: wmsolar/centosapiv1:latest 
+      image: wmsolar/express-api:latest 
       dockerfile: Dockerfile
     cached: true
     depends_on: 

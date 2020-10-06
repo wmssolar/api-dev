@@ -3,6 +3,7 @@ services:
   mongodb:
     image: wmsolar/solardev:database
     container_name: mongodb
+    restart: always
     volumes: 
       - type: volume
         source: mongodbdata
@@ -16,8 +17,8 @@ services:
 
   api:
     build: .
-    image: wmsolar/centosapiv1:latest
-    container_name: apipoint
+    image: wmsolar/express-api:latest
+    container_name: api
     networks:
       - overlay
     privileged: true

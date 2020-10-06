@@ -1,5 +1,5 @@
  
-FROM wmsolar/centosapiv1:latest  
+FROM wmsolar/express-api:latest
 
  
 
@@ -9,9 +9,11 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-RUN npm install
+RUN npm install && \
+    yum clean all && \
+    rm -rf /var/cache/yum  
 
-EXPOSE 3000 22
+EXPOSE 3000 
 
 CMD ["npm", "run", "start-server"]
 

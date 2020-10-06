@@ -1,5 +1,5 @@
  
-FROM wmsolar/centosapiv1:latest  
+FROM wmsolar/express-api:latest
 
  
 
