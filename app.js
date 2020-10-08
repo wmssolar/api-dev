@@ -14,6 +14,7 @@ const Solar = require('./models/solarwdModel');
 const Fleet = require('./models/fleetModel');
 const Ship = require('./models/shipModel');
 const { startSession } = require('mongoose');
+const Pareto = require('./models/ParetoChart');
  
 
 
@@ -136,6 +137,26 @@ bandRouter.route('/bands')
           });
 
     })
+
+
+    bandRouter.route('/paretochart')
+    .get((req, res)=>{
+        const page = req.query.page || 1
+        const options = {
+            page: page,
+            limit: 300,
+            collation: {
+              locale: 'en'
+            }
+          };
+
+          Pareto.paginate({}, options)
+          .then(function(result){
+              res.json(result);
+          });
+
+    })
+
 
 
     bandRouter.route('/solar')

@@ -1,4 +1,4 @@
-Get http://127.0.0.1:3000/api/solar
+Get http://127.0.0.1:3000/api/paretochart
 
 #Get http://localhost:3000/api/fleetdata
 # Get http://localhost:3000/api/bands
