@@ -1,4 +1,4 @@
-Get http://127.0.0.1:3000/api/paretochart
+Get http://127.0.0.1:3000/api/qos
 
 #Get http://localhost:3000/api/fleetdata
 # Get http://localhost:3000/api/bands
