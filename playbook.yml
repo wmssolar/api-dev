@@ -1,0 +1,23 @@
+---
+ - name: Execute two commands on localhost
+   hosts: localhost
+   gather_facts: no
+   serial: 3
+   tasks:
+     - name: docker_compose
+       shell: docker-compose -f docker-compose.yml up -d
+       args:
+         chdir: /home/cdh/gitbranchtest/api-dev-test
+       
+    
+     - name: docker_compose
+       shell: docker-compose -f docker-compose.yml up -d
+       args:
+         chdir: /home/cdh/gitbranchtest/dashboard-dev
+
+#     - name: dashboard
+#      shell:
+#         cmd: docker-compose -f /home/cdh/gitbranchtest/dashboard-dev/docker-compose.yml up -d  
+ 
+    
+

@@ -1,7 +1,7 @@
 demo:
     build: 
       image: wmsolar/express-api:latest 
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.Test
     cached: true
     depends_on: 
     
