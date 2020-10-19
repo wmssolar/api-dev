@@ -16,6 +16,7 @@ const Ship = require('./models/shipModel');
 const { startSession } = require('mongoose');
 const Pareto = require('./models/ParetoChart');
 const QOS = require('./models/qos_metrics');
+const qostable = require('./models/qostable');
 
 
 bandRouter.route('/solarbydate/:Fleet/:start_date/:end_date')
@@ -152,6 +153,25 @@ bandRouter.route('/bands')
           };
 
           QOS.paginate({}, options)
+          .then(function(result){
+              res.json(result);
+          });
+
+    })
+
+    bandRouter.route('/qostable')
+    .get((req, res)=>{
+       
+         const page = req.query.page || 1
+        const options = {
+            page: page,
+            limit: 30,
+            collation: {
+              locale: 'en'
+            }
+          };
+
+          qostable.paginate({}, options)
           .then(function(result){
               res.json(result);
           });
