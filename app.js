@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-var isodate = require("isodate");
+var isodate = require('./node_modules/isodate/isodate');
 const cors = require('cors')
 const port = process.env.PORT || 3000;
 const app = express();
@@ -19,35 +19,63 @@ const QOS = require('./models/qos_metrics');
 const qostable = require('./models/qostable');
 
 
-bandRouter.route('/solarbydate/:Fleet/:start_date/:end_date')
-    .get(async (req, res)=>{
+bandRouter.route('/solar/setStart_Date')
+    .get((req, res)=>{
       
       const page = req.query.page || 1
-      const fleet = req.params.Fleet
-      const start_date = isodate(req.params.start_date);
-      const end_date = isodate(req.params.end_date);
-        
      
+      const options = {
+        page: page,
+        limit: 1,
+        lean: true,
+        pagination: true,
+        sort: { Date:  "asc" },
+        collation: {
+          locale: 'en'
+        }
+      };
+   const aggregate = Solar.find({
+    
+
+   });
+        
+             
+          const sol =   Solar.paginate(aggregate, options)
+          .then(function(sol){
+              res.json(sol);
+              
+          }).catch(function(err){ 
+            console.err(err)
+      });
+
+    });
+
+
+    bandRouter.route('/solar/setEnd_Date')
+    .get((req, res)=>{
+      
+      const page = req.query.page || 1
+      // const startDate = Date_sp;
         const options = {
             page: page,
-            limit: 10,
+            limit: 1,
+            lean: true,
+            pagination: true,
+             sort: { Date:  "descending" },
             collation: {
               locale: 'en'
             }
           };
-       const aggregate = Solar.aggregate();
-            aggregate.match({
-             Fleet: fleet,
-            Date_sp: { $gte: isodate(start_date),
-                              $lte: isodate(end_date)
-                  }
-             
-            }).allowDiskUse(true);;
+       const aggregate = Solar.findOne({
+         
+
+       }) 
+            
         
-             
-          const sol = await Solar.aggregatePaginate(aggregate, options)
+          const sol =  Solar.paginate(aggregate, options)
           .then(function(sol){
               res.json(sol);
+              
           }).catch(function(err){ 
             console.err(err)
       });
@@ -60,7 +88,7 @@ bandRouter.route('/bands')
     .get((req, res)=>{
         const options = {
             page: 1,
-            limit: 10,
+            limit: 20,
             collation: {
               locale: 'en'
             }
@@ -70,36 +98,43 @@ bandRouter.route('/bands')
                 res.json(result);
             });
     });
-
-  bandRouter.route('/solar/:Fleet')
-    .get(async (req, res)=>{
+ 
+  bandRouter.route('/solar/:Fleet/:Ship/:start_date/:end_date')
+    .get( (req, res)=>{
         const page = req.query.page || 1
-      const fleet = req.params.Fleet
+        const fleet = req.params.Fleet;
+         const ship  = req.params.Ship;
+         const start_date = isodate(req.params.start_date);
+         const end_date = isodate(req.params.end_date);
       
-      console.log(fleet)
+      
         const options = {
             page: page,
-            limit: 50,
+            limit: 25,
+            
+          
             collation: {
               locale: 'en'
             }
           };
-       const aggregate = Solar.aggregate();
-            aggregate.match({
-              Fleet: fleet
-           
-            
-            }).allowDiskUse(true);;
-     
 
-          const sol = await Solar.aggregatePaginate(aggregate, options)
+          const aggregate =  Solar.find({
+            Fleet: { $eq: fleet },
+            Ship:   {$eq: ship},
+            Date: { $gte: isodate(start_date),
+              $lte: isodate(end_date)
+             }
+          });
+     
+           Solar.paginate(aggregate, options)
           .then(function(sol){
               res.json(sol);
+               
           }).catch(function(err){ 
             console.err(err)
       });
 
-    })
+    });
 
     
 
@@ -108,25 +143,34 @@ bandRouter.route('/bands')
         const page = req.query.page || 1
         const options = {
             page: page,
-            limit: 100,
+            limit: 50,
             collation: {
               locale: 'en'
             }
           };
 
-          Fleet.paginate({}, options)
-          .then(function(result){
-              res.json(result);
-          });
+      
+      
 
-    })
+      Fleet.paginate({}, options)
+        .then(function(result){
+            res.json(result);
+            console.log(result)
+        });
+
+       
+
+    });
+
+
 
     bandRouter.route('/shipdata')
     .get((req, res)=>{
         const page = req.query.page || 1
         const options = {
-            page: page,
-            limit: 300,
+          page: page,
+          limit: 500,
+     
             collation: {
               locale: 'en'
             }
@@ -134,7 +178,9 @@ bandRouter.route('/bands')
 
           Ship.paginate({}, options)
           .then(function(result){
+
               res.json(result);
+             
           });
 
     })
@@ -146,7 +192,7 @@ bandRouter.route('/bands')
          const page = req.query.page || 1
         const options = {
             page: page,
-            limit: 30,
+            limit: 1,
             collation: {
               locale: 'en'
             }
@@ -165,7 +211,7 @@ bandRouter.route('/bands')
          const page = req.query.page || 1
         const options = {
             page: page,
-            limit: 30,
+            limit: 5,
             collation: {
               locale: 'en'
             }
@@ -184,7 +230,7 @@ bandRouter.route('/bands')
          const page = req.query.page || 1
         const options = {
             page: page,
-            limit: 30,
+            limit: 1,
             collation: {
               locale: 'en'
             }
@@ -198,27 +244,28 @@ bandRouter.route('/bands')
     })
 
 
-
     bandRouter.route('/solar')
-    .get( async (req, res)=>{
+    .get( (req, res)=>{
         const page = req.query.page || 1
+        // const date = req.params.Date_sp
+
         const options = {
             page: page,
-            limit: 10,
+             limit: 100,
            
           };
-    const aggregate = Solar.aggregate();
-    aggregate.allowDiskUse(true);;
-    console.log(aggregate)
-    console.log(options)
-
-    const sol = await Solar.aggregatePaginate(aggregate, options)
-    .then(function(sol){
-        res.json(sol);
-    }).catch(function(err){ 
-      console.err(err)
-        });
-      });    
+          const aggregate =  Solar.find({
+            
+          });
+  
+           Solar.paginate(aggregate, options)
+          .then(function(sol){
+              res.json(sol);
+                
+          }).catch(function(err){ 
+            console.err(err)
+      })
+   });    
 
 
 app.get('/', (req, res)=>{

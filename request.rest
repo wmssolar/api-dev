@@ -1,12 +1,14 @@
-Get http://127.0.0.1:3000/api/qos
 
-#Get http://localhost:3000/api/fleetdata
-# Get http://localhost:3000/api/bands
-# Get http://localhost:3000/api/solarbydate/:?2020-02-13T17:00:00.000&2020-02-17T17:00:00.000
-
+#Get http://localhost:3000/api/solars/2020-07-22T00:00:00.00&2020-07-23T00:00:00.000/cel/eclipse
+#Get http://localhost:3000/api/fleetdata/cell
+# Get http://localhost:3000/api/solar/setStart_Date
+# Get http://localhost:3000/api/solarbydate/:?2020-07-22T00:00:00.000&2020-07-23T00:00:00.000
+# Get http://localhost:3000/api/solar/setEnd_Date
 # Get http://172.17.0.3:3000/                                               
-# # # Get http://localhost:3000/api/shipdata
-# Get http://localhost:3000/api/solar/cel
-# # ?start_date=2020-02-17T12:00:00.000+00:00&end_date=2020-02-14T12:00:00.000+00:00
-# Get http://localhost:3000/api/solarbydate/rci/2020-02-15T17:00:00.000Z/2020-02-17T17:00:00.000Z
 
+#Get http://localhost:3000/api/shipdata
+# # ?start_date=2020-02-17T12:00:00.000+00:00&end_date=2020-02-14T12:00:00.000+00:00
+ #Get http://localhost:3000/api/solars/2020-08-01T00:00:00.000Z/2020-08-31T00:00:00.000Z/cel/eclipse
+
+#Get http://127.0.0.1:3000/api/qostable
+#Get http://localhost:3000/api/solar/:Fleet=cel/:Ship=eclipse/start_date=2020-07-22T00:00:00.000Z&end_date=2020-07-23T00:00:00.000Z
