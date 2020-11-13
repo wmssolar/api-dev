@@ -1,14 +1,18 @@
 
-#Get http://localhost:3000/api/solars/2020-07-22T00:00:00.00&2020-07-23T00:00:00.000/cel/eclipse
+#Get http://localhost:3000/api/ninetyfivePercent/cel/eclipse/2020-10-30T04:00:00.000+00:00&2020-11-01T04:00:00.000+00:00
 #Get http://localhost:3000/api/fleetdata/cell
 # Get http://localhost:3000/api/solar/setStart_Date
 # Get http://localhost:3000/api/solarbydate/:?2020-07-22T00:00:00.000&2020-07-23T00:00:00.000
 # Get http://localhost:3000/api/solar/setEnd_Date
 # Get http://172.17.0.3:3000/                                               
 
-#Get http://localhost:3000/api/shipdata
+# Get http://localhost:3000/api/solar/setEnd_Date
 # # ?start_date=2020-02-17T12:00:00.000+00:00&end_date=2020-02-14T12:00:00.000+00:00
  #Get http://localhost:3000/api/solars/2020-08-01T00:00:00.000Z/2020-08-31T00:00:00.000Z/cel/eclipse
-
-#Get http://127.0.0.1:3000/api/qostable
-#Get http://localhost:3000/api/solar/:Fleet=cel/:Ship=eclipse/start_date=2020-07-22T00:00:00.000Z&end_date=2020-07-23T00:00:00.000Z
+#Get http://localhost:3000/api/ninetyfivePercent/ccl/breeze/2020-10-10T04:00:00.000Z/2020-10-19T04:00:00.000Z
+# Get http://127.0.0.1:3000/api/qostable
+# these two lines below work
+# # Get http://localhost:3000/api/ninetyfivePercent/ccl/breeze
+# Get http://localhost:3000/api/revenue
+# Get http://localhost:3000/api/qos/rci/spectrum/2020-10-01T04:00:00.000+00:00
+# Get http://localhost:3000/api/solar?Fleet=rci&start_date=2020-07-22T00:00:00.000Z&end_date=2020-07-23T00:00:00.000Z&Ship=enchantment

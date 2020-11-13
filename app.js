@@ -17,6 +17,61 @@ const { startSession } = require('mongoose');
 const Pareto = require('./models/ParetoChart');
 const QOS = require('./models/qos_metrics');
 const qostable = require('./models/qostable');
+const ninetyFivePer = require('./models/ninefvPerc');
+const ports = require('./models/Ports');
+const revenue = require('./models/revenue');
+
+
+// var rfs = require('fs');
+// var morgan = require('morgan');
+// var path = require('/usr/src/app')
+// var rfs = require('rotating-file-stream')
+
+// var accessLogStream = rfs.createReadStream('access.log', {
+//   interval: '1d',
+//   path: path.join(__dirname, 'log')
+// });
+
+// app.use(morgan('combined', {stream: accessLogStream}))
+
+bandRouter.route('/ninetyFiveTotal/:Fleet/:Ship/:start_date/:end_date')
+.get( (req, res)=>{
+    const page = req.query.page || 1
+    const fleet = req.params.Fleet;
+     const ship  = req.params.Ship;
+     const start_date = req.params.start_date;
+     const end_date = req.params.end_date;
+  
+  
+    const options = {
+        page: page,
+        limit: 25,
+        
+        collation: {
+          locale: 'en'
+        }
+      };
+
+      const aggregate =  ninetyFivePer.find({
+        Fleet: { $eq: fleet },
+        ShipName: {$eq: ship},
+        DateOfWeek: {
+           $gte: start_date,
+          $lte: end_date
+         }
+      });
+ 
+      ninetyFivePer.paginate(aggregate, options)
+      .then(function(result){
+          res.json(result);
+          console.log(result);
+          // console.log(req.params);
+           
+      }).catch(function(err){ 
+        console.err(err)
+  });
+
+});
 
 
 bandRouter.route('/solar/setStart_Date')
@@ -40,7 +95,7 @@ bandRouter.route('/solar/setStart_Date')
    });
         
              
-          const sol =   Solar.paginate(aggregate, options)
+    const sol = Solar.paginate(aggregate, options)
           .then(function(sol){
               res.json(sol);
               
@@ -50,6 +105,68 @@ bandRouter.route('/solar/setStart_Date')
 
     });
 
+
+    bandRouter.route('/revenue')
+    .get((req, res)=>{
+      
+      const page = req.query.page || 1
+     
+      const options = {
+        page: page,
+        limit: 20,
+        lean: true,
+        pagination: true,
+         
+        collation: {
+          locale: 'en'
+        }
+      };
+    const aggregate = revenue.find({
+    
+    
+    });
+        
+             
+    const sol = revenue.paginate(aggregate, options)
+          .then(function(sol){
+              res.json(sol);
+              
+          }).catch(function(err){ 
+            console.err(err)
+      });
+    
+    });
+
+bandRouter.route('/ports')
+.get((req, res)=>{
+  
+  const page = req.query.page || 1
+ 
+  const options = {
+    page: page,
+    limit: 20,
+    lean: true,
+    pagination: true,
+     
+    collation: {
+      locale: 'en'
+    }
+  };
+const aggregate = ports.find({
+
+
+});
+    
+         
+const sol = ports.paginate(aggregate, options)
+      .then(function(sol){
+          res.json(sol);
+          
+      }).catch(function(err){ 
+        console.err(err)
+  });
+
+});
 
     bandRouter.route('/solar/setEnd_Date')
     .get((req, res)=>{
@@ -135,8 +252,45 @@ bandRouter.route('/bands')
       });
 
     });
+ 
+bandRouter.route('/ninetyfivePercent/:Fleet/:Ship/:start_date/:end_date')
+.get( (req, res)=>{
+    const page = req.query.page || 1
+    const fleet = req.params.Fleet;
+     const ship  = req.params.Ship;
+     const start_date = req.params.start_date;
+     const end_date = req.params.end_date;
+  
+  
+    const options = {
+        page: page,
+        limit: 1,
+        
+        collation: {
+          locale: 'en'
+        }
+      };
 
-    
+      const aggregate =  ninetyFivePer.find({
+        Fleet: { $eq: fleet },
+        ShipName: {$eq: ship},
+        DateOfWeek: {
+           $gte: start_date,
+          $lte: end_date
+         }
+      });
+ 
+      ninetyFivePer.paginate(aggregate, options)
+      .then(function(result){
+          res.json(result);
+          console.log(result);
+          // console.log(req.params);
+           
+      }).catch(function(err){ 
+        console.err(err)
+  });
+
+});
 
     bandRouter.route('/fleetdata')
     .get((req, res)=>{
@@ -190,9 +344,11 @@ bandRouter.route('/bands')
     .get((req, res)=>{
        
          const page = req.query.page || 1
+        
         const options = {
             page: page,
             limit: 1,
+           
             collation: {
               locale: 'en'
             }
@@ -203,7 +359,46 @@ bandRouter.route('/bands')
               res.json(result);
           });
 
-    })
+    });
+
+
+// /:start_date
+    bandRouter.route('/qos/:Fleet/:Ship/:start_date')
+    .get((req, res)=>{
+       
+         const page = req.query.page || 1
+
+         const fleet = req.params.Fleet;
+         const ship  = req.params.Ship;
+        const start_date = req.params.start_date;
+
+
+        const options = {
+            page: page,
+            limit: 1,
+           
+            collation: {
+              locale: 'en'
+            }
+          };
+
+
+      const aggregate =  QOS.find({
+        Fleet: { $eq: fleet },
+        ShipName: {$eq: ship},
+        Date_Time: {
+           $gte: start_date,
+        
+         }
+      });
+
+          QOS.paginate(aggregate, options)
+          .then(function(result){
+              res.json(result);
+              console.log(result);
+          });
+
+    });
 
     bandRouter.route('/qostable')
     .get((req, res)=>{

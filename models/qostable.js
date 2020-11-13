@@ -9,8 +9,8 @@ const qostableModel = new Schema(
         DateTime: {type: Date, required: true},
         Latency:   {type: Number, required: true},
         MOS:   {type: Number, required: true},
-        Jitter : {type: Number, required: true},
-        PacketLoss : {type: Number, required: true},
+        Jitter: {type: Number, required: true},
+        PacketLoss: {type: Number, required: true},
         ShipName: {type: String, required: true},
         Fleet: {type: String, required: true},
     
