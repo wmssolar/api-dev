@@ -15,10 +15,10 @@ services:
     networks:
       - overlay
 
-  api:
+  backend-service:
     build: .
     image: wmsolar/express-api:latest
-    container_name: api
+    container_name: backend-service
     networks:
       - overlay
     privileged: true

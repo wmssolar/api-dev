@@ -39,8 +39,8 @@ bandRouter.route('/ninetyFiveTotal/:Fleet/:Ship/:start_date/:end_date')
     const page = req.query.page || 1
     const fleet = req.params.Fleet;
      const ship  = req.params.Ship;
-     const start_date = req.params.start_date;
-     const end_date = req.params.end_date;
+     const start_date = new Date(req.params.start_date);
+     const end_date = new Date(req.params.end_date);
   
   
     const options = {
@@ -56,8 +56,8 @@ bandRouter.route('/ninetyFiveTotal/:Fleet/:Ship/:start_date/:end_date')
         Fleet: { $eq: fleet },
         ShipName: {$eq: ship},
         DateOfWeek: {
-           $gte: start_date,
-          $lte: end_date
+           $gte: new Date(start_date),
+          $lte: new Date(end_date)
          }
       });
  
@@ -67,8 +67,8 @@ bandRouter.route('/ninetyFiveTotal/:Fleet/:Ship/:start_date/:end_date')
           console.log(result);
           // console.log(req.params);
            
-      }).catch(function(err){ 
-        console.err(err)
+      }).catch(function(){ 
+        console.error()
   });
 
 });
@@ -99,8 +99,8 @@ bandRouter.route('/solar/setStart_Date')
           .then(function(sol){
               res.json(sol);
               
-          }).catch(function(err){ 
-            console.err(err)
+          }).catch(function(){ 
+            console.error()
       });
 
     });
@@ -131,10 +131,9 @@ bandRouter.route('/solar/setStart_Date')
           .then(function(sol){
               res.json(sol);
               
-          }).catch(function(err){ 
-            console.err(err)
+          }).catch(function(){ 
+            console.error()
       });
-    
     });
 
 bandRouter.route('/ports')
@@ -162,8 +161,8 @@ const sol = ports.paginate(aggregate, options)
       .then(function(sol){
           res.json(sol);
           
-      }).catch(function(err){ 
-        console.err(err)
+      }).catch(function(){ 
+        console.error()
   });
 
 });
@@ -193,8 +192,8 @@ const sol = ports.paginate(aggregate, options)
           .then(function(sol){
               res.json(sol);
               
-          }).catch(function(err){ 
-            console.err(err)
+          }).catch(function(){ 
+            console.error()
       });
 
     })
@@ -221,13 +220,13 @@ bandRouter.route('/bands')
         const page = req.query.page || 1
         const fleet = req.params.Fleet;
          const ship  = req.params.Ship;
-         const start_date = isodate(req.params.start_date);
-         const end_date = isodate(req.params.end_date);
+         const start_date = new Date(req.params.start_date);
+         const end_date = new Date(req.params.end_date);
       
       
         const options = {
             page: page,
-            limit: 25,
+            limit: 15,
             
           
             collation: {
@@ -238,8 +237,8 @@ bandRouter.route('/bands')
           const aggregate =  Solar.find({
             Fleet: { $eq: fleet },
             Ship:   {$eq: ship},
-            Date: { $gte: isodate(start_date),
-              $lte: isodate(end_date)
+            Date: { $gte: new Date(start_date),
+              $lte: new Date(end_date)
              }
           });
      
@@ -247,8 +246,8 @@ bandRouter.route('/bands')
           .then(function(sol){
               res.json(sol);
                
-          }).catch(function(err){ 
-            console.err(err)
+          }).catch(function(){ 
+            console.error()
       });
 
     });
@@ -258,8 +257,8 @@ bandRouter.route('/ninetyfivePercent/:Fleet/:Ship/:start_date/:end_date')
     const page = req.query.page || 1
     const fleet = req.params.Fleet;
      const ship  = req.params.Ship;
-     const start_date = req.params.start_date;
-     const end_date = req.params.end_date;
+     const start_date = new Date(req.params.start_date);
+     const end_date = new Date(req.params.end_date);
   
   
     const options = {
@@ -275,19 +274,19 @@ bandRouter.route('/ninetyfivePercent/:Fleet/:Ship/:start_date/:end_date')
         Fleet: { $eq: fleet },
         ShipName: {$eq: ship},
         DateOfWeek: {
-           $gte: start_date,
-          $lte: end_date
+           $gte: new Date(start_date),
+          $lte: new Date(end_date)
          }
       });
  
       ninetyFivePer.paginate(aggregate, options)
       .then(function(result){
           res.json(result);
-          console.log(result);
+     
           // console.log(req.params);
            
-      }).catch(function(err){ 
-        console.err(err)
+      }).catch(function(){ 
+        console.error()
   });
 
 });
@@ -370,7 +369,7 @@ bandRouter.route('/ninetyfivePercent/:Fleet/:Ship/:start_date/:end_date')
 
          const fleet = req.params.Fleet;
          const ship  = req.params.Ship;
-        const start_date = req.params.start_date;
+        const start_date = new Date(req.params.start_date);
 
 
         const options = {
@@ -387,7 +386,7 @@ bandRouter.route('/ninetyfivePercent/:Fleet/:Ship/:start_date/:end_date')
         Fleet: { $eq: fleet },
         ShipName: {$eq: ship},
         Date_Time: {
-           $gte: start_date,
+           $gte: new Date(start_date),
         
          }
       });
@@ -457,9 +456,9 @@ bandRouter.route('/ninetyfivePercent/:Fleet/:Ship/:start_date/:end_date')
           .then(function(sol){
               res.json(sol);
                 
-          }).catch(function(err){ 
-            console.err(err)
-      })
+          }).catch(function(){ 
+            console.error()
+      });
    });    
 
 
