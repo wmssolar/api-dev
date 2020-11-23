@@ -1,7 +1,8 @@
 version: '3.8'
 services:
   mongodb:
-    image: wmsolar/mongodb-prod:latest
+    image: wmsolar/solardev:database
+    container_name: mongodb
     restart: always
     volumes: 
       - type: volume
@@ -15,8 +16,9 @@ services:
       - overlay
 
   backend-service:
-    image: wmsolar/xprapi-prod
-    restart: always
+    build: .
+    image: wmsolar/express-api:latest
+    container_name: backend-service
     networks:
       - overlay
     privileged: true
@@ -33,5 +35,4 @@ volumes:
     external: true
     
 networks:
-   overlay: 
-         
+   overlay:
