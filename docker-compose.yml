@@ -15,7 +15,7 @@ services:
       - overlay
 
   backend-service:
-    image: wmsolar/xprapi-prod
+    image: wmsolar/express-api:latest
     restart: always
     networks:
       - overlay

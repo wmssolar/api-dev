@@ -1,17 +1,17 @@
  
-FROM wmsolar/xprapi-prod:latest
+FROM wmsolar/express-api:latest
 
-
+#new build
 # RUN mkdir -p /usr/src/app 
 
 WORKDIR /usr/src/app
 
-# COPY . .
+COPY . .
 
-# RUN npm install && \
-#     npm install pm2 -g \
-#     yum clean all && \
-#     rm -rf /var/cache/yum  
+RUN npm install && \
+    npm install pm2 -g \
+    yum clean all && \
+    rm -rf /var/cache/yum  
 
 EXPOSE 3000 
 
