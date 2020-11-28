@@ -1,0 +1,51 @@
+version: "3.8"
+
+services:
+
+  mongo-db:
+    image: wmsolar/mongodb-prod:latest
+    volumes:
+      - type: volume
+      - source: mongodbdata
+      - target: /data/db
+      - volume: 
+          nocopy: true
+    ports:
+      - 27017:27017
+    networks:
+      - nginx-net
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+
+  express-api:
+    image: wmsolar/express-api:latest
+    ports:
+      - 3000:3000
+    networks:
+      - nginx-net
+    deploy:
+      replicas: 2
+      placement:
+        constraints: [node.role == manager]
+ 
+ web-service:
+    image: wmsolar/dashboard-prodv4
+    ports:
+      - 8080:80
+    networks:
+      - nginx-net
+    deploy:
+      replicas: 2
+      placement:
+        constraints: [node.role == manager
+
+
+ 
+networks:
+    nginx-net:
+
+volumes:
+  mongodbdata:
+      external: true

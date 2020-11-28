@@ -2,19 +2,30 @@ const express = require('express');
 const mongoose = require('mongoose');
 // var isodate = require('./node_modules/isodate/isodate');
 const cors = require('cors')
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
+console.log(process.env)
 const app = express();
 const mongo = mongoose.connect('mongodb://mongodb:27017/solardata', { useNewUrlParser: true, useUnifiedTopology: true })
-// app.use(cors());
+const morgan = require('morgan')
+ 
+app.use(morgan('tiny'))
+// so the star allows me to send request the host server from with its ip
+var corOptions = {
+  origin: '*',
+  optionsSuccessStatus: 200
+}
 
-app.use(cors({
-  origin: '*', 
-  allowedHeaders: [ 'Accept-Version', 'Authorization', 'Credentials', 'Content-Type',' X-Requested-With' ]
-}));
+app.use(cors(corOptions));
+// app.use(cors({
+//   origin: 'http://localhost:3000', 
+//   allowedHeaders: [ 'Accept-Version', 'Authorization', 'Credentials', 'Content-Type',' X-Requested-With' ],
+ 
+// }));
 
 const bandRouter = express.Router();
 //this is all it takes to get the route setup
 app.use('/api', bandRouter);
+
 const Band = require('./models/bandwidthModel');
 const Solar = require('./models/solarwdModel');
 const Fleet = require('./models/fleetModel');
@@ -43,9 +54,7 @@ const revenue = require('./models/revenue');
 bandRouter.route('/ninetyFiveTotal/:Fleet/:Ship/:start_date/:end_date')
 .get( (req, res)=>{
 
-  // res.header("Access-Control-Allow-Origin", "*");
-  // res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  // res.header("Access-Control-Allow-Methods', 'GET,POST");
+
 
     const page = req.query.page || 1
     const fleet = req.params.Fleet;
@@ -89,9 +98,7 @@ bandRouter.route('/solar/setStart_Date')
     .get((req, res)=>{
       
 
-      // res.header("Access-Control-Allow-Origin", "*");
-      // res.header("Access-Control-Allow-Headers", "X-Requested-With");
-      // res.header("Access-Control-Allow-Methods', 'GET,POST");
+    
 
       const page = req.query.page || 1
      
@@ -126,9 +133,7 @@ bandRouter.route('/solar/setStart_Date')
     .get((req, res)=>{
       
 
-      // res.header("Access-Control-Allow-Origin", "*");
-      // res.header("Access-Control-Allow-Headers", "X-Requested-With");
-      // res.header("Access-Control-Allow-Methods', 'GET,POST");
+   
       
 
       const page = req.query.page || 1
@@ -161,10 +166,7 @@ bandRouter.route('/solar/setStart_Date')
 bandRouter.route('/ports')
 .get((req, res)=>{
 
-  // res.header("Access-Control-Allow-Origin", "*");
-  // res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  // res.header("Access-Control-Allow-Methods', 'GET,POST");
-  
+
   const page = req.query.page || 1
  
   const options = {
@@ -244,9 +246,7 @@ bandRouter.route('/bands')
   bandRouter.route('/solar/:Fleet/:Ship/:start_date/:end_date')
     .get( (req, res)=>{
       
-      // res.header("Access-Control-Allow-Origin", "*");
-      // res.header("Access-Control-Allow-Headers", "X-Requested-With");
-      // res.header("Access-Control-Allow-Methods', 'GET,POST");
+   
 
       const page = req.query.page || 1
         const fleet = req.params.Fleet;
@@ -325,9 +325,7 @@ bandRouter.route('/ninetyfivePercent/:Fleet/:Ship/:start_date/:end_date')
     bandRouter.route('/fleetdata')
     .get((req, res)=>{
 
-      // res.header("Access-Control-Allow-Origin", "*");
-      // res.header("Access-Control-Allow-Headers", "X-Requested-With");
-      // res.header("Access-Control-Allow-Methods', 'GET,POST");
+
 
         const page = req.query.page || 1
         const options = {
@@ -356,9 +354,6 @@ bandRouter.route('/ninetyfivePercent/:Fleet/:Ship/:start_date/:end_date')
     bandRouter.route('/shipdata')
     .get((req, res)=>{
 
-      // res.header("Access-Control-Allow-Origin", "*");
-      // res.header("Access-Control-Allow-Headers", "X-Requested-With");
-      // res.header("Access-Control-Allow-Methods', 'GET,POST");
 
         const page = req.query.page || 1
         const options = {
@@ -383,9 +378,7 @@ bandRouter.route('/ninetyfivePercent/:Fleet/:Ship/:start_date/:end_date')
     bandRouter.route('/qos')
     .get((req, res)=>{
        
-      // res.header("Access-Control-Allow-Origin", "*");
-      // res.header("Access-Control-Allow-Headers", "X-Requested-With");
-      // res.header("Access-Control-Allow-Methods', 'GET,POST");
+    
 
          const page = req.query.page || 1
         
@@ -410,9 +403,7 @@ bandRouter.route('/ninetyfivePercent/:Fleet/:Ship/:start_date/:end_date')
     bandRouter.route('/qos/:Fleet/:Ship/:start_date')
     .get((req, res)=>{
        
-      // res.header("Access-Control-Allow-Origin", "*");
-      // res.header("Access-Control-Allow-Headers", "X-Requested-With");
-      // res.header("Access-Control-Allow-Methods', 'GET,POST");
+       
 
          const page = req.query.page || 1
 
@@ -451,9 +442,7 @@ bandRouter.route('/ninetyfivePercent/:Fleet/:Ship/:start_date/:end_date')
     bandRouter.route('/qostable')
     .get((req, res)=>{
        
-      // res.header("Access-Control-Allow-Origin", "*");
-      // res.header("Access-Control-Allow-Headers", "X-Requested-With");
-      // res.header("Access-Control-Allow-Methods', 'GET,POST");
+       
 
          const page = req.query.page || 1
         const options = {
@@ -475,9 +464,6 @@ bandRouter.route('/ninetyfivePercent/:Fleet/:Ship/:start_date/:end_date')
     .get((req, res)=>{
        
 
-      // res.header("Access-Control-Allow-Origin", "*");
-      // res.header("Access-Control-Allow-Headers", "X-Requested-With");
-      // res.header("Access-Control-Allow-Methods', 'GET,POST");
       
          const page = req.query.page || 1
         const options = {

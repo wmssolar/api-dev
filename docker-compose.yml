@@ -15,13 +15,14 @@ services:
       - overlay
 
   backend-service:
-    image: wmsolar/express-api:latest
+    build: .
+    image: wmsolar/nodejs-express:latest
     restart: always
     networks:
       - overlay
     privileged: true
     ports:
-      - "3000:3000"
+      - "3001:3001"
     working_dir: /usr/src/app
     volumes:
       - .:/usr/src/app
